@@ -6,11 +6,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import OpenApiResponse, extend_schema
 
 from event_manager_test.app.models import Event
 from event_manager_test.app.filters import EventFilter
 from event_manager_test.app.serializers import (
-    SignUpSerializer, EventSerializer
+    EventQueryParamSerializer, SignUpSerializer, EventSerializer
 )
 from event_manager_test.utils.exceptions.event import MustBeTheOwnerError
 
@@ -43,6 +44,10 @@ class EventViewSet(ModelViewSet):
             raise MustBeTheOwnerError()
 
         return is_owner
+
+    @extend_schema(parameters=[EventQueryParamSerializer])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     def create(self, request):
         """
@@ -89,6 +94,12 @@ class EventViewSet(ModelViewSet):
 
         return super().destroy(request, pk)
 
+    @extend_schema(
+        request=None,
+        responses={
+            200: OpenApiResponse(response=None, description="You have been registered.")
+        }
+    )
     @action(detail=True, methods=['patch'])
     def register(self, request, pk):
         serializer = EventSerializer(
@@ -104,6 +115,12 @@ class EventViewSet(ModelViewSet):
 
         return Response("You have been registered.")
 
+    @extend_schema(
+        request=None,
+        responses={
+            200: OpenApiResponse(response=None, description="You have been de-registered.")
+        }
+    )
     @action(detail=True, methods=['patch'])
     def deregister(self, request, pk):
         serializer = EventSerializer(
