@@ -22,6 +22,7 @@ class Event(models.Model):
         CONFIRMED = 10, 'CONFIRMED'
 
     name = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     e_type = models.CharField(
