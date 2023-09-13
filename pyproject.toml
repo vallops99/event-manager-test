@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "event-manager-test"
+version = "1.0.0"
+description = ""
+authors = ["Valerio Farrotti <valerio.farrotti@adkaora.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.*"
+django = "^4.2.5"
+djangorestframework = "^3.14.0"
+markdown = "^3.4.4"
+django-filter = "^23.2"
+djangorestframework-simplejwt = "^5.3.0"
+pyyaml = "^6.0.1"
+uritemplate = "^4.1.1"
+drf-spectacular = "^0.26.4"
+gunicorn = "^21.2.0"
+uvicorn = "^0.23.2"
+
+
+[tool.poetry.group.development.dependencies]
+pytest = "^7.4.2"
+pytest-django = "^4.5.2"
+python-dotenv = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+migrate = 'poetry_scripts:migrate'
+start = 'poetry_scripts:start_project'
+makemigrations = 'poetry_scripts:makemigrations'
+createsuperuser = 'poetry_scripts:createsuperuser'
+pytest = 'poetry_scripts:pytest'
