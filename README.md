@@ -103,3 +103,18 @@ At the root folder we can find the configuration files:
     - `test_app`, as per Django project structure the test subfolder is called test_<app_name>:
         - `test_event.py`, contains every test relative to the event;
         - `test_user.py`, contains every test relative to the user.
+
+## API Flow ##
+The flow of the API is pretty simple, follow these step to test everything through Postman:
+- Signup, POST `/api/signup/`, please create two different account in order to test every functionality of the project;
+- Login, POST `/api/login/`, choose one account, please remember to add the access token into the Authorization header as Bearer token;
+- Login refresh, POST `/api/login/refresh/`, this will put the old refresh token in a black list for security purposes (access token is changed too, reload it into the Authorization header);
+- Create events, POST `/api/events/`, create as much as you want;
+- Get events, GET `/api/events/`, feel free to play with query parameters;
+- Get specific event, GET `/api/events/<event_id>/`;
+- Update event, PUT `/api/events/<event_id>/`, remember the body must contain every single required field of the event;
+- Partial update event, PATCH `/api/events/<event_id>/`, you can add to the body only the field of the event you want to update;
+- Delete event, DELETE `/api/events/<event_id>`, don't delete them all, you still need some events.
+- Register to event, `/api/events/<event_id>/register/`, can register only once (you must deregister if you want to register again);
+- Deregister to event, `/api/events/<event_id>/deregister/`, reverse of register;
+- Logout, POST `/api/logout/`;
